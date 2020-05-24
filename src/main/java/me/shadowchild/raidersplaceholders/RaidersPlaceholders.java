@@ -2,6 +2,7 @@ package me.shadowchild.raidersplaceholders;
 
 import de.dytanic.cloudnet.driver.provider.ServiceTaskProvider;
 import de.dytanic.cloudnet.driver.service.ServiceInfoSnapshot;
+import de.dytanic.cloudnet.ext.bridge.player.IPlayerManager;
 import de.dytanic.cloudnet.wrapper.Wrapper;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
@@ -33,6 +34,7 @@ public final class RaidersPlaceholders extends PlaceholderExpansion {
     public String onRequest(OfflinePlayer offlinePlayer, String rawParams) {
         ServiceInfoSnapshot serviceInfoSnapshot = cloudnet.getCurrentServiceInfoSnapshot();
         String params = rawParams.toLowerCase();
+        IPlayerManager players = CloudNetDriver.getInstance().getServicesRegistry().getFirstService(IPlayerManager.class);
 
         switch (params) {
             case "service_name":
@@ -49,6 +51,8 @@ public final class RaidersPlaceholders extends PlaceholderExpansion {
                 return serviceInfoSnapshot.getAddress().getHost() + ":" + serviceInfoSnapshot.getAddress().getPort();
             case "task_name":
                 return serviceInfoSnapshot.getServiceId().getTaskName();
+            case "total_online":
+                return "" + players.getOnlineCount();
         }
         return null;
     }
