@@ -1,4 +1,0 @@
-name: RaidersPlaceholders
-version: ${project.version}
-main: me.shadowchild.raidersplaceholders.RaidersPlaceholders
-api-version: 1.13
